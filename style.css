@@ -661,7 +661,7 @@ body {
 .content-more2 a {
     color: #000;
     opacity: 1;
-    margin-left: 100px;
+    margin-left: 0px;
 }
 
 /* --- 親要素（.content）にホバーした時 --- */

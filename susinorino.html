@@ -94,7 +94,24 @@
 
                                 <div class="modal-btn-area">
                                     <!-- <a href="./nazo/nazo1.html" class="mystery-hint-btn"></a> -->
-                                    <button onclick="location.href='./nazo/nazo1.html'" class="mystery-hint-btn"></button>
+                                    <!-- <button onclick="location.href='./nazo/nazo1.html'" class="mystery-hint-btn"></button> -->
+                                    <button id="secretBtn" class="mystery-hint-btn"></button>
+
+<script>
+let count = 0;
+
+const btn = document.getElementById("secretBtn");
+
+btn.addEventListener("click", () => {
+  count++;
+
+  // 一定時間でリセット（隠し感アップ）
+
+  if (count >= 6) {
+    window.location.href = "./nazo-finish.html";
+  }
+});
+</script>
                                 </div>
                             </div>
                         </div>

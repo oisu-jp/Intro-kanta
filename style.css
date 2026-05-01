@@ -1,0 +1,788 @@
+@charset "UTF-8";
+
+/* =============================================
+   Basic Reset
+   ============================================= */
+
+/* ボックスモデルの解釈を「境界線を含める」設定に統一 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* デフォルトの余白を削除 */
+body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
+  margin: 0;
+}
+
+/* リストのスタイル（中黒など）を解除 */
+ul, ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* =============================================
+   Base Elements
+   ============================================= */
+
+html {
+  /* テキストサイズの自動調整を防止 */
+  -webkit-text-size-adjust: 100%;
+  /* スムーズなスクロール挙動（任意） */
+  scroll-behavior: smooth;
+}
+
+body {
+  /* フォントの描画を綺麗にする */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+}
+
+/* 画像を扱いやすくする（親要素からはみ出さない） */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* フォーム要素のフォントを親要素から継承させる */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* リンクの装飾をリセット（必要に応じて） */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ボタンのデフォルトスタイルを解除 */
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  appearance: none;
+}
+
+/* テーブルの隙間を排除 */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* --- フォント設定 --- */
+
+body {
+  /* 英数字には Montserrat、日本語には Noto Sans JP を適用 */
+  /* 最後に sans-serif を入れることで、万が一のフォント読み込み失敗時も崩れません */
+  font-family: 'Montserrat', 'Noto Sans JP', "Helvetica Neue", "Arial", "Hiragino Sans", "Meiryo", sans-serif;
+  
+  /* 文字をより読みやすくする微調整 */
+  color: #333;
+  letter-spacing: 0.03em; /* ほんの少し文字間を広げると高級感が出ます */
+}
+
+/* 見出しなど、より強調したい部分 */
+h1, h2, h3, .logo {
+  font-weight: 700; /* 太字に設定 */
+  line-height: 1.4;
+}
+
+/* 数字を綺麗に見せたい特定のパーツ用（価格表示など） */
+.price, .date {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+
+/* header */
+/* --- ヘッダー全体のスタイル --- */
+.header {
+  background-color: #000;
+  /* box-shadow: 0 2px 5px rgba(0,0,0,0.1); */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  color: #fff;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* --- ナビゲーション（PCスタイル） --- */
+.nav-list {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-list a {
+  color: #fff;
+  transition: color 0.3s;
+}
+
+.nav-list a:hover {
+  color: #007bff;
+}
+
+/* --- ハンバーガーボタン（初期状態は隠す） --- */
+.menu-toggle {
+  display: none;
+}
+
+.menu-icon {
+  display: none;
+  cursor: pointer;
+  width: 30px;
+  height: 20px;
+  position: relative;
+  z-index: 1100;
+}
+
+.menu-icon span,
+.menu-icon span::before,
+.menu-icon span::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: #fff;
+  position: absolute;
+  transition: all 0.3s;
+}
+
+.menu-icon span::before { top: -8px; }
+.menu-icon span::after { top: 8px; }
+
+/* =============================================
+   レスポンシブ（スマホ用：768px以下）
+   ============================================= */
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block; /* スマホでアイコンを表示 */
+  }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    right: -100%; /* 画面外に隠す */
+    width: 80%;
+    height: 100vh;
+    background-color: #fff;
+    padding-top: 80px;
+    transition: all 0.3s;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .nav-list a {
+    color: #000;
+  }
+
+  /* チェックボックスにチェックが入ったらメニューを出す */
+  .menu-toggle:checked ~ .nav {
+    right: 0;
+  }
+
+  /* ハンバーガーを「×」に変形させる */
+  .menu-toggle:checked + .menu-icon span {
+    background-color: transparent;
+  }
+  .menu-toggle:checked + .menu-icon span::before {
+    transform: rotate(45deg);
+    top: 0;
+    color: #000;
+  }
+  .menu-toggle:checked + .menu-icon span::after {
+    transform: rotate(-45deg);
+    top: 0;
+    color: #000;
+  }
+
+  
+}
+
+
+body {
+  margin: 0;
+  background: #000;
+}
+
+.top-space {
+  position: relative;
+  width: 100vw;
+  height: 600px;
+  background:
+    radial-gradient(circle at bottom, 10183A_1 0%, 030615_1 35%, #000 80%);
+  overflow: hidden;
+}
+.top-space p:nth-child(1) {
+  font-family: 'Damion', cursive;
+  font-size: 140px; /* 筆記体は少し小さく見えがちなので、少し大きめがおすすめ */
+  color: #fff;
+  position: absolute;
+  top: 120px;
+  left: 200px;
+  transform: rotate(-15deg);
+}
+.top-space p:nth-child(2) {
+  font-family: 'Damion', cursive;
+  font-size: 140px; /* 筆記体は少し小さく見えがちなので、少し大きめがおすすめ */
+  color: #fff;
+  position: absolute;
+  top: 210px;
+  left: 250px;
+  transform: rotate(-15deg);
+}
+
+/* 共通スタイル */
+.top-space p {
+  font-family: 'Damion', cursive;
+  font-size: 140px;
+  color: #fff;
+  position: absolute;
+  transform: rotate(-15deg);
+  
+  /* 出現前の状態：透明で下にずらしておく */
+  opacity: 0;
+  translate: 0 50px;
+  transition: opacity 1.2s ease-out, translate 1.2s ease-out, text-shadow 1.5s ease-out;
+}
+
+.top-space p:nth-child(1) { top: 120px; left: 200px; }
+.top-space p:nth-child(2) { top: 210px; left: 250px; }
+
+/* --- JSでこのクラス（is-visible）を付与する --- */
+.top-space p.is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.top-space img {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+}
+/* --- 共通のスタイル（テキストと画像、両方） --- */
+.top-space p,
+.js-fade {
+  /* 出現前の状態 */
+  opacity: 0;
+  translate: 0 50px;
+  /* 影のアニメーションも滑らかにするため、transitionに追加 */
+  transition: opacity 1.2s ease-out, translate 1.2s ease-out, filter 1.5s ease-out;
+}
+
+/* --- テキスト用の個別スタイル（既存） --- */
+.top-space p {
+  font-family: 'Damion', cursive;
+  font-size: 140px;
+  color: #fff;
+  position: absolute;
+  transform: rotate(-15deg);
+}
+.top-space p:nth-child(1) { top: 120px; left: 200px; }
+.top-space p:nth-child(2) { top: 210px; left: 250px; }
+
+/* --- JSで「is-visible」が付いた時の共通の状態 --- */
+.top-space p.is-visible,
+.js-fade.is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* --- (A) テキスト用の影 --- */
+.top-space p.is-visible {
+  text-shadow: 
+    2px -2px 2px rgba(255, 255, 255, 0.4),
+    8px -8px 8px rgba(255, 255, 255, 0.2),
+    15px -15px 15px rgba(255, 255, 255, 0);
+}
+
+/* --- (B) 画像（ペンギン）用の影 --- */
+.js-fade.is-visible {
+  /* 画像には text-shadow ではなく drop-shadow を使用 */
+  /* テキストと同じ「右上方向への流れ星」の影を、画像の形に合わせて生成 */
+  filter: 
+    drop-shadow(2px -2px 2px rgba(255, 255, 255, 0.4))
+    drop-shadow(8px -8px 8px rgba(255, 255, 255, 0.2))
+    drop-shadow(15px -15px 15px rgba(255, 255, 255, 0));
+}
+
+
+/* 星レイヤー */
+.stars {
+  position: absolute;
+  inset: 0;
+}
+
+.stars span {
+  position: absolute;
+  display: block;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation:
+    appear 1.5s ease forwards,
+    twinkle 2.5s ease-in-out infinite;
+}
+
+/* 奥の星 */
+.layer-back span {
+  width: 2px;
+  height: 2px;
+  animation-duration: 2s, 4s;
+}
+
+/* 中間の星 */
+.layer-middle span {
+  width: 3px;
+  height: 3px;
+  animation-duration: 1.7s, 3s;
+}
+
+/* 手前の星 */
+.layer-front span {
+  width: 4px;
+  height: 4px;
+  box-shadow: 0 0 8px white;
+  animation-duration: 1.4s, 2s;
+}
+
+/* 星の位置と出現タイミング */
+.layer-back span:nth-child(1) { top: 10%; left: 15%; animation-delay: .2s, 2s; }
+.layer-back span:nth-child(2) { top: 22%; left: 70%; animation-delay: .7s, 1s; }
+.layer-back span:nth-child(3) { top: 35%; left: 40%; animation-delay: 1.2s, 3s; }
+.layer-back span:nth-child(4) { top: 55%; left: 85%; animation-delay: 1.6s, .5s; }
+.layer-back span:nth-child(5) { top: 80%; left: 20%; animation-delay: 2.1s, 2.5s; }
+.layer-back span:nth-child(6) { top: 65%; left: 55%; animation-delay: 2.6s, 1.4s; }
+.layer-back span:nth-child(7) { top: 18%; left: 90%; animation-delay: 3s, 2.2s; }
+.layer-back span:nth-child(8) { top: 72%; left: 75%; animation-delay: 3.5s, .8s; }
+.layer-back span:nth-child(9) { top: 45%; left: 8%; animation-delay: 4s, 1.7s; }
+.layer-back span:nth-child(10) { top: 88%; left: 48%; animation-delay: 4.5s, 3.2s; }
+
+.layer-middle span:nth-child(1) { top: 8%; left: 35%; animation-delay: .4s, 1s; }
+.layer-middle span:nth-child(2) { top: 28%; left: 12%; animation-delay: 1s, 2s; }
+.layer-middle span:nth-child(3) { top: 42%; left: 65%; animation-delay: 1.5s, .7s; }
+.layer-middle span:nth-child(4) { top: 60%; left: 30%; animation-delay: 2s, 2.4s; }
+.layer-middle span:nth-child(5) { top: 75%; left: 92%; animation-delay: 2.4s, 1.3s; }
+.layer-middle span:nth-child(6) { top: 15%; left: 55%; animation-delay: 2.9s, 3s; }
+.layer-middle span:nth-child(7) { top: 50%; left: 78%; animation-delay: 3.3s, .9s; }
+.layer-middle span:nth-child(8) { top: 82%; left: 10%; animation-delay: 3.8s, 1.8s; }
+.layer-middle span:nth-child(9) { top: 68%; left: 44%; animation-delay: 4.2s, 2.8s; }
+.layer-middle span:nth-child(10) { top: 33%; left: 88%; animation-delay: 4.8s, .4s; }
+
+.layer-front span:nth-child(1) { top: 20%; left: 25%; animation-delay: .8s, 1.2s; }
+.layer-front span:nth-child(2) { top: 38%; left: 52%; animation-delay: 1.4s, .6s; }
+.layer-front span:nth-child(3) { top: 58%; left: 18%; animation-delay: 2.2s, 2s; }
+.layer-front span:nth-child(4) { top: 78%; left: 62%; animation-delay: 3s, 1.5s; }
+.layer-front span:nth-child(5) { top: 12%; left: 82%; animation-delay: 3.6s, .9s; }
+.layer-front span:nth-child(6) { top: 72%; left: 35%; animation-delay: 4.2s, 2.5s; }
+.layer-front span:nth-child(7) { top: 48%; left: 92%; animation-delay: 4.8s, 1.1s; }
+.layer-front span:nth-child(8) { top: 90%; left: 25%; animation-delay: 5.2s, 3s; }
+.layer-front span:nth-child(9) { top: 5%; left: 5%; animation-delay: 5.7s, .3s; }
+.layer-front span:nth-child(10) { top: 30%; left: 72%; animation-delay: 6.2s, 1.8s; }
+
+/* 徐々に出現 */
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* キラキラ */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.25;
+  }
+}
+
+
+/* maincontent */
+.main-content {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 700px 1fr;
+    grid-template-rows: 100px 350px;
+    grid-template-areas: 
+    "box-1 box-3"
+    "box-2 box-3";
+}
+.title {
+    grid-area: box-1;
+    padding-left: 50px;
+}
+.title h1 {
+    font-size: 6em;
+    color: rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+}
+.content {
+    grid-area: box-2;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    color: #000;
+    padding: 40px;
+}
+.content-more {
+  position: absolute;
+  font-size: 1.5em;
+  font-weight: bold;
+  bottom: 20px;
+  right: 80px;
+}
+.content p {
+  font-size: 1.4em;
+  font-weight: bold;
+}
+.profile-table {
+    width: 100%;
+    border-collapse: collapse; /* 境界線の隙間をなくす */
+    margin-top: 10px;
+    color: #000;
+    /* テキストを右寄せにしたい場合は以下を有効に */
+    /* text-align: right; */
+}
+
+.profile-table th, 
+.profile-table td {
+    border-bottom: 1px solid #000; /* うっすらとした区切り線 */
+}
+
+.profile-table th {
+  padding: 12px 5px 12px 40px;
+    width: 20%; /* 見出しの幅を固定して揃える */
+    text-align: left;
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #000; /* 見出しだけ少し透けさせて強弱をつける */
+    white-space: nowrap;
+}
+
+.profile-table td {
+  padding: 12px 5px 12px 3px;
+  font-size: 1.2em;
+    text-align: left;
+    line-height: 1.6;
+}
+
+/* 最後の行の線は消す */
+.profile-table tr:last-child th,
+.profile-table tr:last-child td {
+    border-bottom: none;
+}
+.photo {
+    grid-area: box-3;
+    transform: translateX(-150px);
+    position: relative;
+}
+.photo img:nth-child(1) {
+  position: absolute;
+  transform: rotate(8deg);
+  border-radius: 30px;
+  top: 50px;
+  left: 30px;
+  z-index: 3;
+}
+.photo img:nth-child(2) {
+  position: absolute;
+  transform: rotate(-5deg);
+  border-radius: 30px;
+  top: 220px;
+  left: -40px;
+  z-index: 1;
+}
+.photo img:nth-child(3) {
+  position: absolute;
+  transform: rotate(5deg);
+  border-radius: 30px;
+  top: 300px;
+  left: 130px;
+  z-index: 2;
+}
+
+.content-space {
+  height: 100px;
+  width: 100%;
+}
+/* --- 親要素（.content） --- */
+.content {
+    position: relative;
+    transition: all 0.3s ease; // 必要に応じて残す（背景色変化など用）
+}
+
+/* --- Learn more... の初期状態（透明） --- */
+.content-more {
+    position: absolute;
+    margin-right: 50px;
+    bottom: 15px;      /* 常にここにある */
+    right: 20px;       /* 常にここにある */
+    cursor: pointer;
+    opacity: 0;        /* 完全に透明 */
+    pointer-events: none; /* 透明な時はクリックできないようにする（誤操作防止） */
+    transition: all 0.5s ease; /* 透明度だけを0.5秒かけて変化させる */
+}
+
+.content-more a {
+    color: #000;
+    opacity: 1;
+}
+
+/* --- 親要素（.content）にホバーした時 --- */
+.content:hover .content-more {
+    opacity: 1;   /* くっきり表示 */
+    pointer-events: auto; /* 表示されたらクリック可能にする */
+}
+.content:hover .content {
+    transform: scale(1.05);
+}
+
+/* maincontent2 */
+.main-content2 {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 700px;
+    grid-template-rows: 100px 300px;
+    grid-template-areas: 
+    "box-3 box-1"
+    "box-3 box-2";
+}
+.title2 {
+    grid-area: box-1;
+    padding-right: 50px;
+}
+.title2 h1 {
+    font-size: 6em;
+    color: rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+    text-align: right;
+}
+.content2 {
+    position: relative;
+    grid-area: box-2;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    color: #000;
+    padding: 40px;
+}
+.content-text2 {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 左右中央 */
+  align-items: center;     /* 上下中央 */
+}
+.content-text2 p {
+  text-align: left;
+  font-size: 1.5em;
+ font-weight: bold;
+}
+.content-more2 {
+  font-size: 1.5em;
+  position: absolute;
+  bottom: 20px;
+  left: 40px;
+  font-weight: bold;
+}
+.photo2 {
+    grid-area: box-3;
+    transform: translateX(-150px);
+    position: relative;
+}
+.photo2 img:nth-child(1) {
+  position: absolute;
+  transform: rotate(-7deg);
+  border-radius: 30px;
+  top: 150px;
+  right: -270px;
+  z-index: 3;
+}
+
+/* --- 親要素（.content） --- */
+.content2 {
+    position: relative;
+    transition: all 0.3s ease; // 必要に応じて残す（背景色変化など用）
+}
+
+/* --- Learn more... の初期状態（透明） --- */
+.content-more2 {
+    position: absolute;
+    margin-right: 50px;
+    cursor: pointer;
+    opacity: 0;        /* 完全に透明 */
+    pointer-events: none; /* 透明な時はクリックできないようにする（誤操作防止） */
+    transition: all 0.5s ease; /* 透明度だけを0.5秒かけて変化させる */
+}
+.content-text2 p {
+  transition: all 0.5s ease;
+}
+
+
+.content-more2 a {
+    color: #000;
+    opacity: 1;
+    margin-left: 100px;
+}
+
+/* --- 親要素（.content）にホバーした時 --- */
+.content2:hover .content-more2 {
+    opacity: 1;   /* くっきり表示 */
+    pointer-events: auto; /* 表示されたらクリック可能にする */
+}
+.content2:hover .content2 {
+    transform: scale(1.05);
+}
+.sns-links {
+    display: flex;
+    justify-content: center; /* 左右の中央配置 */
+    align-items: center;     /* 上下の中央配置 */
+    width: 100%;             /* 横幅いっぱいに広げてその中で真ん中にする */
+    margin: 20px 0;          /* 上下の余白（お好みで調整） */
+}
+
+.insta-icon {
+    display: inline-block;   /* 配置を安定させる */
+    font-size: 2.5rem;       /* 少し大きくすると存在感が出て良い感じです */
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* ホバー時の演出（先ほどのを継承） */
+.insta-icon:hover {
+    color: #fff;
+    transform: scale(1.1);   /* 上に動かす代わりに、少し大きくして目立たせる */
+    text-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.8),
+        0 0 25px #e1306c;
+}
+/* --- アニメーション共通設定に「.scroll-en」を追加 --- */
+.top-space p,
+.js-fade,
+.scroll-en { /* ★追加 */
+  /* 出現前の状態：透明で下にずらしておく */
+  opacity: 0;
+  translate: 0 50px;
+  /* 動きを滑らかにするため、transitionを設定 */
+  transition: opacity 1.2s ease-out, translate 1.2s ease-out, text-shadow 1.5s ease-out, filter 1.5s ease-out;
+}
+
+/* --- JSで「is-visible」が付いた時の共通の状態 --- */
+.top-space p.is-visible,
+.js-fade.is-visible,
+.scroll-en.is-visible { /* ★追加 */
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* -------------------------------------------
+   「スクロールしてね」自体の基本スタイル
+-------------------------------------------- */
+.scroll-en {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%); /* 中央揃え */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+/* 「SCROLL」のテキスト */
+.scroll-en span {
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  margin-bottom: 10px;
+  font-family: sans-serif;
+  opacity: 0.7;
+}
+
+/* 線のベース */
+.scroll-line {
+  width: 1px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 動く線の部分（下へ流れる常時アニメーション） */
+.scroll-line::after {
+  content: "";
+  position: absolute;
+  top: -60px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  /* 「is-visible」が付くまでは動かさないため、初期状態はpaused */
+  animation: scroll-anim 2s cubic-bezier(0.7, 0, 0.3, 1) infinite paused;
+}
+
+/* --- JSで出現した後に、常時アニメーションを開始させる --- */
+.scroll-en.is-visible .scroll-line::after {
+  animation-play-state: running; /* ★出現したら再生開始 */
+}
+
+@keyframes scroll-anim {
+  0% { top: -60px; }
+  40% { top: 0; }
+  60% { top: 0; }
+  100% { top: 60px; }
+}
+
+/* ヘッダーのリンクやタイトルなど */
+.header-link:hover, 
+.title h1:hover {
+    color: #ffffff; /* 文字自体もパキッと白く */
+    
+    /* 青い影を消して、白の重なりで発光を表現 */
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.4),
+        0 0 30px rgba(255, 255, 255, 0.2);
+    
+    transition: all 0.3s ease; /* ふわっと光らせる */
+}

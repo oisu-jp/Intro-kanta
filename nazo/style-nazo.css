@@ -1,0 +1,543 @@
+@charset "UTF-8";
+
+/* =============================================
+   Basic Reset
+   ============================================= */
+
+/* ボックスモデルの解釈を「境界線を含める」設定に統一 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* デフォルトの余白を削除 */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* リストのスタイル（中黒など）を解除 */
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* =============================================
+   Base Elements
+   ============================================= */
+
+html {
+  /* テキストサイズの自動調整を防止 */
+  -webkit-text-size-adjust: 100%;
+  /* スムーズなスクロール挙動（任意） */
+  scroll-behavior: smooth;
+}
+
+body {
+  /* フォントの描画を綺麗にする */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+}
+
+/* 画像を扱いやすくする（親要素からはみ出さない） */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* フォーム要素のフォントを親要素から継承させる */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* リンクの装飾をリセット（必要に応じて） */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ボタンのデフォルトスタイルを解除 */
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  appearance: none;
+}
+
+/* テーブルの隙間を排除 */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* --- フォント設定 --- */
+
+body {
+  /* 英数字には Montserrat、日本語には Noto Sans JP を適用 */
+  /* 最後に sans-serif を入れることで、万が一のフォント読み込み失敗時も崩れません */
+  font-family:
+    "Montserrat", "Noto Sans JP", "Helvetica Neue", "Arial", "Hiragino Sans",
+    "Meiryo", sans-serif;
+
+  /* 文字をより読みやすくする微調整 */
+  color: #333;
+  letter-spacing: 0.03em; /* ほんの少し文字間を広げると高級感が出ます */
+}
+
+/* 見出しなど、より強調したい部分 */
+h1,
+h2,
+h3,
+.logo {
+  font-weight: 700; /* 太字に設定 */
+  line-height: 1.4;
+}
+
+/* 数字を綺麗に見せたい特定のパーツ用（価格表示など） */
+.price,
+.date {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+/* header */
+/* --- ヘッダー全体のスタイル --- */
+.header {
+  background-color: #000;
+  /* box-shadow: 0 2px 5px rgba(0,0,0,0.1); */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  color: #fff;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* --- ナビゲーション（PCスタイル） --- */
+.nav-list {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-list a {
+  color: #fff;
+  transition: color 0.3s;
+}
+
+.nav-list a:hover {
+  color: #007bff;
+}
+
+/* --- ハンバーガーボタン（初期状態は隠す） --- */
+.menu-toggle {
+  display: none;
+}
+
+.menu-icon {
+  display: none;
+  cursor: pointer;
+  width: 30px;
+  height: 20px;
+  position: relative;
+  z-index: 1100;
+}
+
+.menu-icon span,
+.menu-icon span::before,
+.menu-icon span::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: #fff;
+  position: absolute;
+  transition: all 0.3s;
+}
+
+.menu-icon span::before {
+  top: -8px;
+}
+.menu-icon span::after {
+  top: 8px;
+}
+
+/* =============================================
+   レスポンシブ（スマホ用：768px以下）
+   ============================================= */
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block; /* スマホでアイコンを表示 */
+  }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    right: -100%; /* 画面外に隠す */
+    width: 80%;
+    height: 100vh;
+    background-color: #fff;
+    padding-top: 80px;
+    transition: all 0.3s;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .nav-list a {
+    color: #000;
+  }
+
+  /* チェックボックスにチェックが入ったらメニューを出す */
+  .menu-toggle:checked ~ .nav {
+    right: 0;
+  }
+
+  /* ハンバーガーを「×」に変形させる */
+  .menu-toggle:checked + .menu-icon span {
+    background-color: transparent;
+  }
+  .menu-toggle:checked + .menu-icon span::before {
+    transform: rotate(45deg);
+    top: 0;
+    color: #000;
+  }
+  .menu-toggle:checked + .menu-icon span::after {
+    transform: rotate(-45deg);
+    top: 0;
+    color: #000;
+  }
+}
+
+body {
+  margin: 0;
+  background: #000;
+  text-align: center;
+}
+.top-space {
+  height: 50px;
+}
+h1 {
+  color: #fff;
+  font-size: 3em;
+}
+
+/* チェックボックス自体は隠す */
+.modal-check {
+  display: none;
+}
+
+/* 3つを横並びにする設定 */
+.mystery-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* ボックス同士の隙間 */
+  max-width: 900px; /* 全体の最大幅 */
+  margin: 0 auto 50px; /* 中央寄せと下の余白 */
+  padding: 0 20px;
+}
+
+/* 各アイテムのラッパー */
+.mystery-item-wrapper {
+  flex: 1; /* 均等な幅に広がる */
+  max-width: 250px; /* 大きくなりすぎないように制限 */
+}
+
+/* 正方形のカードデザイン */
+.mystery-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  aspect-ratio: 1 / 1; /* ★正方形にする魔法のプロパティ */
+
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mystery-card:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Q1, Q2... のラベル */
+.q-label {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  margin-bottom: 5px;
+}
+
+/* OPENなどの補助テキスト */
+.click-info {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 2px;
+}
+
+/* --- モーダルのスタイルは前回と同じ --- */
+/* (以下略：前回のモーダルCSSをそのまま使用してください) */
+
+/* レスポンシブ対応：スマホでは少し小さくするか縦並びに */
+@media (max-width: 600px) {
+  .mystery-row {
+    gap: 10px;
+  }
+  .q-label {
+    font-size: 1.5rem;
+  }
+}
+
+/* モーダル外側の黒背景 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85); /* かなり暗くする */
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+
+  /* 初期状態（隠す） */
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+}
+
+/* モーダルの中身（画像部分） */
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%); /* 少し下から浮かび上がらせる */
+  width: 760px; /*1/9追記//////////////////////////*/
+  max-width: 800px;
+  transition: all 0.4s ease;
+}
+
+/* チェックが入ったら表示 */
+.modal-check:checked ~ .modal-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-check:checked ~ .modal-overlay .modal-content {
+  transform: translate(-50%, -50%); /* 真ん中に戻る */
+}
+
+/* 閉じるボタン */
+.close-btn {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* 画像ボックスを白背景でクッキリ見せる */
+.mystery-image-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.mystery-image-box img {
+  width: 600px; /*2/9追記//////////////////////////*/
+  height: auto;
+  display: block;
+}
+
+/* 背景をクリックしても閉じられるようにする用 */
+.modal-close-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+/* 回答エリアのパネル */
+.answer-panel {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  padding: 40px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.answer-title {
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 5px;
+  margin-bottom: 30px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 1);
+}
+
+/* 入力欄のスタイル */
+.input-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 5px 20px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 1);
+}
+
+.input-box label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  width: 80px;
+  text-align: left;
+}
+
+.input-box input {
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 10px;
+  width: 100%;
+  font-size: 1.1rem;
+  outline: none;
+}
+
+/* ボタン */
+.submit-btn {
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 15px 60px;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 1.1rem;
+}
+
+.submit-btn:hover {
+  background: #ffffff;
+  color: #000;
+  box-shadow: 0 0 20px rgba(0, 123, 255, 0.8);
+}
+
+.error-text {
+  color: #ff4d4d;
+  margin-top: 20px;
+  display: none;
+  font-weight: bold;
+}
+/* モーダル内のボタンエリア */
+.modal-btn-area {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* 謎解き用ヒントボタンのスタイル */
+.mystery-hint-btn {
+  backdrop-filter: blur(5px);
+  background-color: transparent;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  font-family: "Noto Sans JP", sans-serif;
+  letter-spacing: 1px;
+  position: absolute;
+  height: 17px; /*3/9追記//////////////////////////*/
+  width: 15px; /*4/9追記//////////////////////////*/
+  top: 120px; /*5/9追記//////////////////////////*/
+  right: 263px; /*6/9追記//////////////////////////*/
+  cursor: auto; /*7/9追記//////////////////////////*/
+  color: transparent; /*8/9追記//////////////////////////*/
+  backdrop-filter: none; /*9/9追記//////////////////////////*/
+}
+.nazo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.final {
+  background-color: #fff;
+  display: flex; /* Flexboxを使用 */
+  justify-content: center; /* 左右の中央揃え */
+  align-items: center; /* 上下の中央揃え */
+  width: 60%; /* 横幅をいっぱいにする */
+  padding: 40px 0;
+  display: block; /* 上下に少し余白を作ると綺麗です */
+  margin-left: 20%;
+}
+
+.final img {
+  max-width: 90%; /* 画面からはみ出ないように */
+  height: auto; /* 比率を維持 */
+  border-radius: 10px; /* 他の画像と合わせて少し角を丸くする場合 */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); /* 軽く光らせる演出 */
+}
+
+/* ヘッダーのリンクやタイトルなど */
+.header-link:hover,
+.title h1:hover {
+  color: #ffffff; /* 文字自体もパキッと白く */
+
+  /* 青い影を消して、白の重なりで発光を表現 */
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.4),
+    0 0 30px rgba(255, 255, 255, 0.2);
+
+  transition: all 0.3s ease; /* ふわっと光らせる */
+}

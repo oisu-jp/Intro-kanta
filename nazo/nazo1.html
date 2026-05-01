@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts の読み込み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style-nazo.css">
+    <title>謎解きページ</title>
+</head>
+
+<body>
+    <main>
+        <header class="header">
+            <div class="header-inner">
+                <a href="../index.html" class="logo">Introduction</a>
+                <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
+                <label for="menu-toggle" class="menu-icon">
+                    <span></span>
+                </label>
+
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../profile.html">Profile</a></li>
+                        <li><a href="../susinorino.html">Mystery</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <section class="nazo">
+            <div class="top-space"></div>
+            <div class="title">
+                <h1>Mystery</h1>
+            </div>
+            <div class="top-space"></div>
+            <section class="mystery-container">
+                <div class="mystery-row">
+
+                    <div class="mystery-item-wrapper">
+                        <input type="checkbox" id="modal-q1" class="modal-check">
+                        <label for="modal-q1" class="mystery-card">
+                            <span class="q-label">Q1</span>
+                            <p class="click-info">OPEN</p>
+                        </label>
+                        <div class="modal-overlay">
+                            <label for="modal-q1" class="modal-close-bg"></label>
+                            <div class="modal-content">
+                                <label for="modal-q1" class="close-btn">&times;</label>
+                                <div class="mystery-image-box">
+                                    <img src="./img/1.png" alt="第1問">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mystery-item-wrapper">
+                        <input type="checkbox" id="modal-q2" class="modal-check">
+                        <label for="modal-q2" class="mystery-card">
+                            <span class="q-label">Q2</span>
+                            <p class="click-info">OPEN</p>
+                        </label>
+                        <div class="modal-overlay">
+                            <label for="modal-q2" class="modal-close-bg"></label>
+                            <div class="modal-content">
+                                <label for="modal-q2" class="close-btn">&times;</label>
+                                <div class="mystery-image-box">
+                                    <img src="./img/2.png" alt="第2問">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mystery-item-wrapper">
+                        <input type="checkbox" id="modal-q3" class="modal-check">
+                        <label for="modal-q3" class="mystery-card">
+                            <span class="q-label">Q3</span>
+                            <p class="click-info">OPEN</p>
+                        </label>
+                        <div class="modal-overlay">
+                            <label for="modal-q3" class="modal-close-bg"></label>
+                            <div class="modal-content">
+                                <label for="modal-q3" class="close-btn">&times;</label>
+                                <div class="mystery-image-box">
+                                    <img src="./img/3.png" alt="第3問">
+                                </div>
+
+                                <div class="modal-btn-area">
+                                    <!-- <a href="./nazo2.html" class="mystery-hint-btn"></a> -->
+                                    <button onclick="location.href='./nazo2.html'" class="mystery-hint-btn"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <div class="answer-panel">
+                <h3 class="answer-title">ANSWER</h3>
+                <div class="input-fields">
+                    <div class="input-box">
+                        <label>第1問</label>
+                        <input type="text" id="ans1" placeholder="答えを入力...">
+                    </div>
+                    <div class="input-box">
+                        <label>第2問</label>
+                        <input type="text" id="ans2" placeholder="答えを入力...">
+                    </div>
+                    <div class="input-box">
+                        <label>第3問</label>
+                        <input type="text" id="ans3" placeholder="答えを入力...">
+                    </div>
+                </div>
+
+                <button id="check-btn" class="submit-btn">解答する</button>
+                <p id="error-msg" class="error-text">不正解っっ！！！</p>
+            </div>
+        </section>
+        </section>
+
+
+
+        <footer class="site-footer">
+            <p>&copy; 2026 Kanta Yamamoto</p>
+        </footer>
+
+        <style>
+            /* フッターのスタイル */
+            .site-footer {
+                background-color: #000000;
+                /* 黒背景 */
+                color: #ffffff;
+                /* 白文字 */
+                text-align: center;
+                /* 中央揃え */
+                padding: 80px 0;
+                /* 上下の余白 */
+                width: 100%;
+                font-family: sans-serif;
+                /* フォント（お好みで変更可） */
+                font-size: 14px;
+                /* 文字サイズ */
+            }
+
+            /* 余計なマージンを消すための設定（必要に応じて） */
+            body {
+                margin: 0;
+            }
+        </style>
+    </main>
+    <script src="add.js"></script>
+
+</body>
+
+</html>

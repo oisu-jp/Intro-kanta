@@ -1,0 +1,295 @@
+@charset "UTF-8";
+
+/* =============================================
+   Basic Reset
+   ============================================= */
+
+/* ボックスモデルの解釈を「境界線を含める」設定に統一 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* デフォルトの余白を削除 */
+body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
+  margin: 0;
+}
+
+/* リストのスタイル（中黒など）を解除 */
+ul, ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* =============================================
+   Base Elements
+   ============================================= */
+
+html {
+  /* テキストサイズの自動調整を防止 */
+  -webkit-text-size-adjust: 100%;
+  /* スムーズなスクロール挙動（任意） */
+  scroll-behavior: smooth;
+}
+
+body {
+  /* フォントの描画を綺麗にする */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+}
+
+/* 画像を扱いやすくする（親要素からはみ出さない） */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* フォーム要素のフォントを親要素から継承させる */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* リンクの装飾をリセット（必要に応じて） */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ボタンのデフォルトスタイルを解除 */
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  appearance: none;
+}
+
+/* テーブルの隙間を排除 */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* --- フォント設定 --- */
+
+body {
+  /* 英数字には Montserrat、日本語には Noto Sans JP を適用 */
+  /* 最後に sans-serif を入れることで、万が一のフォント読み込み失敗時も崩れません */
+  font-family: 'Montserrat', 'Noto Sans JP', "Helvetica Neue", "Arial", "Hiragino Sans", "Meiryo", sans-serif;
+  
+  /* 文字をより読みやすくする微調整 */
+  letter-spacing: 0.03em; /* ほんの少し文字間を広げると高級感が出ます */
+}
+
+/* 見出しなど、より強調したい部分 */
+h1, h2, h3, .logo {
+  font-weight: 700; /* 太字に設定 */
+  line-height: 1.4;
+}
+
+/* 数字を綺麗に見せたい特定のパーツ用（価格表示など） */
+.price, .date {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+
+/* header */
+/* --- ヘッダー全体のスタイル --- */
+.header {
+  background-color: #000;
+  /* box-shadow: 0 2px 5px rgba(0,0,0,0.1); */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  color: #fff;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* --- ナビゲーション（PCスタイル） --- */
+.nav-list {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-list a {
+  color: #fff;
+  transition: color 0.3s;
+}
+
+.nav-list a:hover {
+  color: #007bff;
+}
+
+/* --- ハンバーガーボタン（初期状態は隠す） --- */
+.menu-toggle {
+  display: none;
+}
+
+.menu-icon {
+  display: none;
+  cursor: pointer;
+  width: 30px;
+  height: 20px;
+  position: relative;
+  z-index: 1100;
+}
+
+.menu-icon span,
+.menu-icon span::before,
+.menu-icon span::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: #fff;
+  position: absolute;
+  transition: all 0.3s;
+}
+
+.menu-icon span::before { top: -8px; }
+.menu-icon span::after { top: 8px; }
+
+/* =============================================
+   レスポンシブ（スマホ用：768px以下）
+   ============================================= */
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block; /* スマホでアイコンを表示 */
+  }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    right: -100%; /* 画面外に隠す */
+    width: 80%;
+    height: 100vh;
+    background-color: #fff;
+    padding-top: 80px;
+    transition: all 0.3s;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .nav-list a {
+    color: #000;
+  }
+
+  /* チェックボックスにチェックが入ったらメニューを出す */
+  .menu-toggle:checked ~ .nav {
+    right: 0;
+  }
+
+  /* ハンバーガーを「×」に変形させる */
+  .menu-toggle:checked + .menu-icon span {
+    background-color: transparent;
+  }
+  .menu-toggle:checked + .menu-icon span::before {
+    transform: rotate(45deg);
+    top: 0;
+    color: #000;
+  }
+  .menu-toggle:checked + .menu-icon span::after {
+    transform: rotate(-45deg);
+    top: 0;
+    color: #000;
+  }
+
+  
+}
+
+
+body {
+  margin: 0;
+  background: #000;
+  text-align: center;
+}
+.top-space {
+  height: 50px;
+}
+h1 {
+  color: #fff;
+  font-size: 3em;
+}
+.content-text2 {
+  display: grid;
+  place-items: center;
+}
+
+.profile-table {
+  width: 60%;
+  border-collapse: collapse;
+  margin: 40px;
+  font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+}
+
+.profile-table th, 
+.profile-table td {
+  padding: 15px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  vertical-align: top; /* 文字が複数行になっても上に揃える */
+}
+
+.profile-table th {
+  width: 35%;
+  text-align: left;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6); /* 項目名を少し薄くして大人っぽく */
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase; /* 英字がある場合にお洒落に見せる */
+  padding-left: 70px;
+}
+
+.profile-table td {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.6;
+  /* 文字にうっすら光を纏わせる */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* 最後の行の線は非表示 */
+.profile-table tr:last-child th,
+.profile-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ヘッダーのリンクやタイトルなど */
+.header-link:hover, 
+.title h1:hover {
+    color: #ffffff; /* 文字自体もパキッと白く */
+    
+    /* 青い影を消して、白の重なりで発光を表現 */
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.4),
+        0 0 30px rgba(255, 255, 255, 0.2);
+    
+    transition: all 0.3s ease; /* ふわっと光らせる */
+}

@@ -293,3 +293,20 @@ h1 {
     
     transition: all 0.3s ease; /* ふわっと光らせる */
 }
+
+@media (max-width: 900px) {
+  .profile-table {
+  width: 80%;
+  margin: 10px;
+}
+  .profile-table th {
+  width: 20%;
+  font-weight: 500;
+  padding-left: 0px;
+}
+  .profile-table td {
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+}

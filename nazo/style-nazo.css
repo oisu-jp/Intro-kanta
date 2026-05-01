@@ -403,6 +403,7 @@ h1 {
   position: absolute;
   width: 100%;
   height: 100%;
+  left: 0;
   cursor: pointer;
 }
 /* 回答エリアのパネル */
@@ -540,4 +541,24 @@ h1 {
     0 0 30px rgba(255, 255, 255, 0.2);
 
   transition: all 0.3s ease; /* ふわっと光らせる */
+}
+@media (max-width: 900px) {
+  .modal-content {
+  width: 350px; /*1/9追記//////////////////////////*/
+}
+  .mystery-image-box img {
+  width: 300px; /*2/9追記//////////////////////////*/
+}
+  .mystery-hint-btn {
+  height: 10px; /*3/9追記//////////////////////////*/
+  width: 10px; /*4/9追記//////////////////////////*/
+  top: 70px; /*5/9追記//////////////////////////*/
+  right: 90px; /*6/9追記//////////////////////////*/
+}
+  h1 {
+  font-size: 2em;
+} 
+  h3 {
+    font-size: 0.9em;
+  }
 }

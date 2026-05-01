@@ -647,6 +647,7 @@ body {
 /* --- Learn more... の初期状態（透明） --- */
 .content-more2 {
     position: absolute;
+    right: 30px;
     margin-right: 50px;
     cursor: pointer;
     opacity: 0;        /* 完全に透明 */
@@ -659,9 +660,11 @@ body {
 
 
 .content-more2 a {
+    position: absolute;
+    right: 10px;
+    bottom: 30px;
     color: #000;
     opacity: 1;
-    margin-left: 0px;
 }
 
 /* --- 親要素（.content）にホバーした時 --- */

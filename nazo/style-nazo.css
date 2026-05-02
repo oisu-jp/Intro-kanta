@@ -241,12 +241,12 @@ h3,
   .menu-toggle:checked + .menu-icon span::before {
     transform: rotate(45deg);
     top: 0;
-    color: #000;
+    background-color: #000;
   }
   .menu-toggle:checked + .menu-icon span::after {
     transform: rotate(-45deg);
     top: 0;
-    color: #000;
+    background-color: #000;
   }
 }
 

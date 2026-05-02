@@ -241,12 +241,12 @@ h3,
   .menu-toggle:checked + .menu-icon span::before {
     transform: rotate(45deg);
     top: 0;
-    color: #000;
+    background-color: #000;
   }
   .menu-toggle:checked + .menu-icon span::after {
     transform: rotate(-45deg);
     top: 0;
-    color: #000;
+    background-color: #000;
   }
 }
 
@@ -525,7 +525,7 @@ h1 {
 .final img {
   max-width: 90%; /* 画面からはみ出ないように */
   height: auto; /* 比率を維持 */
-  border-radius: 10px; /* 他の画像と合わせて少し角を丸くする場合 */
+  border-radius: 0px; /* 他の画像と合わせて少し角を丸くする場合 */
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); /* 軽く光らせる演出 */
 }
 
